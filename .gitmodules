@@ -1,0 +1,12 @@
+[submodule "aemdesign-aem-core"]
+	path = aemdesign-aem-core
+	url = git@github.com:aem-design/aemdesign-aem-core.git
+[submodule "aemdesign-aem-support"]
+	path = aemdesign-aem-support
+	url = git@github.com:aem-design/aemdesign-aem-support.git
+[submodule "aemdesign-archetype"]
+	path = aemdesign-archetype
+	url = git@github.com:aem-design/aemdesign-archetype.git
+[submodule "aemdesign-operations"]
+	path = aemdesign-operations
+	url = git@github.com:aem-design/aemdesign-operations.git
