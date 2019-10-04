@@ -1,0 +1,12 @@
+language: java
+
+cache:
+  directories:
+    - ~/.m2/repository
+
+git:
+  depth: false
+
+#Create new project and build it to see if it works
+script:
+	- ./devops

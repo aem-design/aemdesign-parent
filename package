@@ -1,0 +1,18 @@
+#!/bin/bash
+
+set -e
+
+function set_term_title() {
+   echo -en "\033]0;$1\a"
+}
+
+./check_maven
+
+set_term_title "Deploying Monolith Package: mvn -Dvault.useProxy=false -DskipTests -e -U -P deploymentpackage clean install "
+#mvn -DskipTests clean install -P autoCleanInstallPackage
+#mvn -Dvault.useProxy=false -DskipTests clean install -P autoInstallBundle,autoInstallPackage,autoInstallPackagePublish
+
+mvn -Dvault.useProxy=false -DskipTests -e -U -P deploymentpackage clean package
+
+set_term_title "Deployed"
+

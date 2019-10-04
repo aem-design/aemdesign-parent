@@ -1,0 +1,7 @@
+#!/bin/bash
+
+AEM_USER=${1:?Please specifiy a username}
+AEM_PASS=${2:?Please specifiy a password}
+AEM_HOST=54.153.160.42
+
+./deploy -Dcrx.host=${AEM_HOST} -Dcrx.username=${AEM_USER} -Dcrx.password=${AEM_PASS}
