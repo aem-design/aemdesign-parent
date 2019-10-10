@@ -11,8 +11,7 @@ git:
 before_install:
   - sed -i 's/git@github.com:/https:\/\/github.com\//' .gitmodules
   - git submodule update --init
-  - git submodule foreach sed -i 's/git@github.com:/https:\/\/github.com\//' .gitmodules
-  - git submodule foreach update --init
+  - git submodule foreach if [[ -f ".gitmodules" ]]; then sed -i 's/git@github.com:/https:\/\/github.com\//' .gitmodules; git submodule foreach update --init; fi
 
 install:
   - ls -l
