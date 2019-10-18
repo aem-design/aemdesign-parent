@@ -11,7 +11,7 @@ git:
 addons:
   apt:
     packages:
-      - python36
+      - python3.6
 
 before_install:
   - echo SWTICH TO PYTHON3
