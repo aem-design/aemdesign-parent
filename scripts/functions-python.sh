@@ -10,88 +10,30 @@ DEFAULT_VIRTUALENV_HOME="$HOME/.virtualenvs"
 
 function doPythonInstallModules() {
 
-    pip install --ignore-installed pycrypto BeautifulSoup4 xmltodict paramiko PyYAML Jinja2 httplib2 boto xmltodict six requests python-consul passlib cryptography appdirs packaging boto 'docker-compose<1.20.0' 'docker<3.0' awscli 'ansible<2.6.0'
+    pip install --ignore-installed pycrypto BeautifulSoup4 xmltodict paramiko PyYAML Jinja2 httplib2 boto boto3 xmltodict six requests python-consul passlib cryptography appdirs packaging boto docker-compose docker awscli ansible
 
 }
 
 function doPythonConfig() {
 
-#    local CHECK_PIP2
     local CHECK_PIP3
-    local CHECK_PYTHON2
     local CHECK_PYTHON3
     local CHECK_VIRTUALENV
     local CHECK_VIRTUALENVWRAPPER
 
-#    CHECK_PIP2="$(which pip2 2>/dev/null)"
     CHECK_PIP3="$(which pip3 2>/dev/null)"
-#    CHECK_PYTHON2="$(which python2 2>/dev/null)"
-#    CHECK_PYTHON2_VERSION="$($CHECK_PYTHON2 -c 'import platform; print(platform.python_version())')"
     CHECK_PYTHON3="$(which python3 2>/dev/null)"
     CHECK_PYTHON3_VERSION="$($CHECK_PYTHON3 -c 'import platform; print(platform.python_version())')"
     CHECK_VIRTUALENV="$(which virtualenv 2>/dev/null)"
     CHECK_VIRTUALENVWRAPPER="$(find /usr -name virtualenvwrapper.sh 2>/dev/null | head -n 1)"
 
-#    debug "CHECK_PIP2=${CHECK_PIP2}" "info"
     debug "CHECK_PIP3=${CHECK_PIP3}" "info"
-#    debug "CHECK_PYTHON2=${CHECK_PYTHON2}" "info"
-#    debug "CHECK_PYTHON2_VERSION=${CHECK_PYTHON2_VERSION}" "info"
     debug "CHECK_PYTHON3=${CHECK_PYTHON3}" "info"
     debug "CHECK_PYTHON3_VERSION=${CHECK_PYTHON3_VERSION}" "info"
     debug "CHECK_VIRTUALENV=${CHECK_VIRTUALENV}" "info"
     debug "CHECK_VIRTUALENVWRAPPER=${CHECK_VIRTUALENVWRAPPER}" "info"
 
     if [[ ! -z "$CHECK_PYTHON3" ]]; then
-
-#        #skip if Python3 is available
-#        if [[ -z $CHECK_PYTHON3 ]]; then
-#            PYTHON_ENV="$PROJECT_CONFIG_PREFIX.${CHECK_PYTHON2_VERSION}"
-#
-#            debug "Please install python and its dependencies" "error"
-#            debug "python2 -m easy_install pip virtualenv virtualenvwrapper workon" "error"
-#
-##            debug "Making sure required python modules are is installed" "info"
-##            #make sure pip is installed
-##            python2 -m easy_install pip virtualenv virtualenvwrapper workon
-##
-##            CHECK_VIRTUALENV="$(which virtualenv 2>/dev/null)"
-##
-##            updatePythonEnv \
-##                    "$PYTHON_ENV" \
-##                    "$CHECK_PYTHON2" \
-##                    "$CHECK_PYTHON2_VERSION" \
-##                    "$CHECK_VIRTUALENV" \
-##                    "$DEFAULT_USER_PROFILE" \
-##                    "$CHECK_VIRTUALENVWRAPPER" \
-##                    "$DEFAULT_VIRTUALENV_HOME"
-#
-#        fi
-
-        if [[ -z "$CHECK_PYTHON3" ]]; then
-            PYTHON_ENV="$PROJECT_CONFIG_PREFIX.${CHECK_PYTHON3_VERSION}"
-
-
-            debug "Please install python3 and its dependencies" "error"
-            debug "pip3 virtualenv virtualenvwrapper workon" "error"
-
-#            debug "Making sure required python modules are is installed" "info"
-#            #make sure pip is installed
-#            python3 -m easy_install pip virtualenv virtualenvwrapper workon
-#
-#            CHECK_VIRTUALENV="$(which virtualenv 2>/dev/null)"
-#
-#            debug "Updating python entrainment variables" "info"
-#            updatePythonEnv \
-#                    "$PYTHON_ENV" \
-#                    "$CHECK_PYTHON3" \
-#                    "$CHECK_PYTHON3_VERSION" \
-#                    "$CHECK_VIRTUALENV" \
-#                    "$DEFAULT_USER_PROFILE" \
-#                    "$CHECK_VIRTUALENVWRAPPER" \
-#                    "$DEFAULT_VIRTUALENV_HOME"
-          exit 1
-
-        fi
 
         debug "Make new virtual environment: ${PYTHON_ENV}" "info"
         mkvirtualenv "${PYTHON_ENV}"
@@ -100,9 +42,9 @@ function doPythonConfig() {
 
     else
 
-        debug "PLEASE INSTALL LATEST PYTHON2 & PYTHON3" "error"
+        debug "PLEASE INSTALL PYTHON3 AND ITS DEPENDENCIES" "error"
+        debug "pip3 virtualenv virtualenvwrapper workon" "error"
         exit 1
-
     fi
 }
 
