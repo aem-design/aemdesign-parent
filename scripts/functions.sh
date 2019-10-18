@@ -127,10 +127,10 @@ function checkPreReqs() {
         FAILTEST="1"
     fi
 
-    checkVersion python2 2.7.10 [2-9].[7-9].[1-9][0-9] "--version"
-    if [[ $_RETURNVALUE == 0 ]]; then
-        FAILTEST="1"
-    fi
+#    checkVersion python2 2.7.10 [2-9].[7-9].[1-9][0-9] "--version"
+#    if [[ $_RETURNVALUE == 0 ]]; then
+#        FAILTEST="1"
+#    fi
     checkVersion python3 3.6.1 [3-9].[0-9].[0-9][0-9] "--version"
     if [[ $_RETURNVALUE == 0 ]]; then
         FAILTEST="1"
@@ -140,10 +140,10 @@ function checkPreReqs() {
         FAILTEST="1"
     fi
 
-    checkVersion2 "$(virtualenv --version 2>&1 | awk '{print $1}')" 15.1.0 [1-9][5-9].[1-9].[0-9] "virtualenv"
-    if [[ $_RETURNVALUE == 0 ]]; then
-        FAILTEST="1"
-    fi
+#    checkVersion2 "$(virtualenv --version 2>&1 | awk '{print $1}')" 15.1.0 [1-9][5-9].[1-9].[0-9] "virtualenv"
+#    if [[ $_RETURNVALUE == 0 ]]; then
+#        FAILTEST="1"
+#    fi
 
     checkVersion2 "$(ansible --version | awk 'NR==1 {print $2}')" 2.4.1.0 [2].[4].[1-9].[0-9] "ansible"
     if [[ $_RETURNVALUE == 0 ]]; then
@@ -196,6 +196,11 @@ function checkPreReqs() {
     fi
 
     checkVersion2 "$(virtualenvwrapper --version | grep -E "virtualenvwrapper" -q && echo ok )" ok [ok] "virtualenvwrapper"
+    if [[ $_RETURNVALUE == 0 ]]; then
+        FAILTEST="1"
+    fi
+
+    checkVersion2 "$(workon --help | grep -E "workon" -q && echo ok )" ok [ok] "workon"
     if [[ $_RETURNVALUE == 0 ]]; then
         FAILTEST="1"
     fi
