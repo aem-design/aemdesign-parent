@@ -8,7 +8,16 @@ git:
   depth: false
   submodules: false
 
+addons:
+  apt:
+    packages:
+      - python36
+
 before_install:
+  - echo SWTICH TO PYTHON3
+  - pyenv install 3.6.3
+  - pyenv global 3.6.3
+  - python3 -m easy_install pip virtualenv virtualenvwrapper workon
   - sed -i 's/git@github.com:/https:\/\/github.com\//' .gitmodules
   - git submodule update --init
   - git submodule foreach "if [[ -f '.gitmodules' ]]; then sed -i 's/git@github.com:/https:\/\/github.com\//' .gitmodules; git submodule foreach update --init; fi"
