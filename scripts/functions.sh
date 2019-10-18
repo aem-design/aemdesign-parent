@@ -117,10 +117,10 @@ function checkPreReqs() {
         FAILTEST="1"
     fi
 
-    checkVersion2 "$(convert --version | head -n 1 | awk '{print $3}')" 7.0.7 [7-9].[0-9].[7-9] "imagemagick"
-    if [[ $_RETURNVALUE == 0 ]]; then
-        FAILTEST="1"
-    fi
+#    checkVersion2 "$(convert --version | head -n 1 | awk '{print $3}')" 7.0.7 [7-9].[0-9].[7-9] "imagemagick"
+#    if [[ $_RETURNVALUE == 0 ]]; then
+#        FAILTEST="1"
+#    fi
 
     checkVersion realpath 8.29 [8-9].[2-9][0-9] "--version"
     if [[ $_RETURNVALUE == 0 ]]; then
@@ -170,15 +170,15 @@ function checkPreReqs() {
         FAILTEST="1"
     fi
 
-    checkVersion groovy 2.5.3 [2-9].[5-9].[3-9] "--version"
-    if [[ $_RETURNVALUE == 0 ]]; then
-        FAILTEST="1"
-    fi
+#    checkVersion groovy 2.5.3 [2-9].[5-9].[3-9] "--version"
+#    if [[ $_RETURNVALUE == 0 ]]; then
+#        FAILTEST="1"
+#    fi
 
-    checkVersion bundle 2.0.1 [2-9].[0-9].[1-9] "--version"
-    if [[ $_RETURNVALUE == 0 ]]; then
-        FAILTEST="1"
-    fi
+#    checkVersion bundle 2.0.1 [2-9].[0-9].[1-9] "--version"
+#    if [[ $_RETURNVALUE == 0 ]]; then
+#        FAILTEST="1"
+#    fi
 
     checkVersion socat 1.7.3.2 [1-9].[7-9].[3-9].[2-9] "-V"
     if [[ $_RETURNVALUE == 0 ]]; then
