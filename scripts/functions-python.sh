@@ -47,41 +47,49 @@ function doPythonConfig() {
         if [[ -z $CHECK_PYTHON3 ]]; then
             PYTHON_ENV="$PROJECT_CONFIG_PREFIX.${CHECK_PYTHON2_VERSION}"
 
-            debug "Making sure required python modules are is installed" "info"
-            #make sure pip is installed
-            python2 -m easy_install pip virtualenv virtualenvwrapper workon
+            debug "Please install python and its dependencies" "error"
+            debug "python2 -m easy_install pip virtualenv virtualenvwrapper workon" "error"
 
-            CHECK_VIRTUALENV="$(which virtualenv 2>/dev/null)"
-
-            updatePythonEnv \
-                    "$PYTHON_ENV" \
-                    "$CHECK_PYTHON2" \
-                    "$CHECK_PYTHON2_VERSION" \
-                    "$CHECK_VIRTUALENV" \
-                    "$DEFAULT_USER_PROFILE" \
-                    "$CHECK_VIRTUALENVWRAPPER" \
-                    "$DEFAULT_VIRTUALENV_HOME"
+#            debug "Making sure required python modules are is installed" "info"
+#            #make sure pip is installed
+#            python2 -m easy_install pip virtualenv virtualenvwrapper workon
+#
+#            CHECK_VIRTUALENV="$(which virtualenv 2>/dev/null)"
+#
+#            updatePythonEnv \
+#                    "$PYTHON_ENV" \
+#                    "$CHECK_PYTHON2" \
+#                    "$CHECK_PYTHON2_VERSION" \
+#                    "$CHECK_VIRTUALENV" \
+#                    "$DEFAULT_USER_PROFILE" \
+#                    "$CHECK_VIRTUALENVWRAPPER" \
+#                    "$DEFAULT_VIRTUALENV_HOME"
 
         fi
 
         if [[ ! -z "$CHECK_PYTHON3" ]]; then
             PYTHON_ENV="$PROJECT_CONFIG_PREFIX.${CHECK_PYTHON3_VERSION}"
 
-            debug "Making sure required python modules are is installed" "info"
-            #make sure pip is installed
-            python3 -m easy_install pip virtualenv virtualenvwrapper workon
 
-            CHECK_VIRTUALENV="$(which virtualenv 2>/dev/null)"
+            debug "Please install python and its dependencies" "error"
+            debug "python3 -m easy_install pip virtualenv virtualenvwrapper workon" "error"
 
-            debug "Updating python entrainment variables" "info"
-            updatePythonEnv \
-                    "$PYTHON_ENV" \
-                    "$CHECK_PYTHON3" \
-                    "$CHECK_PYTHON3_VERSION" \
-                    "$CHECK_VIRTUALENV" \
-                    "$DEFAULT_USER_PROFILE" \
-                    "$CHECK_VIRTUALENVWRAPPER" \
-                    "$DEFAULT_VIRTUALENV_HOME"
+#            debug "Making sure required python modules are is installed" "info"
+#            #make sure pip is installed
+#            python3 -m easy_install pip virtualenv virtualenvwrapper workon
+#
+#            CHECK_VIRTUALENV="$(which virtualenv 2>/dev/null)"
+#
+#            debug "Updating python entrainment variables" "info"
+#            updatePythonEnv \
+#                    "$PYTHON_ENV" \
+#                    "$CHECK_PYTHON3" \
+#                    "$CHECK_PYTHON3_VERSION" \
+#                    "$CHECK_VIRTUALENV" \
+#                    "$DEFAULT_USER_PROFILE" \
+#                    "$CHECK_VIRTUALENVWRAPPER" \
+#                    "$DEFAULT_VIRTUALENV_HOME"
+          exit 1
 
         fi
 
