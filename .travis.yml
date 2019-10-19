@@ -17,8 +17,8 @@ before_install:
   - echo SETUP VIRTUALENV
   - export WORKON_HOME=$HOME/.virtualenvs
   - export PROJECT_HOME=$HOME/Devel
-  - export VIRTUALENVWRAPPER_PYTHON=/usr/bin/python3
-  - export VIRTUALENVWRAPPER_VIRTUALENV=/usr/local/bin/virtualenv
+  - export VIRTUALENVWRAPPER_PYTHON=/opt/pyenv/shims/python3
+  - export VIRTUALENVWRAPPER_VIRTUALENV=/opt/pyenv/shims/virtualenv
   - source /opt/pyenv/shims/virtualenvwrapper.sh
   - echo UPDATE SUBMODULES
   - sed -i 's/git@github.com:/https:\/\/github.com\//' .gitmodules
