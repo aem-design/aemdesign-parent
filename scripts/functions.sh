@@ -155,15 +155,15 @@ function checkPreReqs() {
         FAILTEST="1"
     fi
 
-    checkVersion2 "$("$VBOXMANAGE" --version 2>&1 | awk '{ gsub(/[^0-9a-zA-Z .]/, "", $1); print $1}')" 5.2.24 [5-9].[2-9].[2-9][4-9] "VBox"
-    if [[ $_RETURNVALUE == 0 ]]; then
-        FAILTEST="1"
-    fi
-
-    checkVersion2 "$("$VBOXMANAGE" list extpacks 2>&1 | grep "Oracle VM VirtualBox Extension Pack" -A 2 | grep Version: | awk '{print $2}')" 5.2.24 [5-9].[2-9].[2-9][4-9] "VBox Ext"
-    if [[ $_RETURNVALUE == 0 ]]; then
-        FAILTEST="1"
-    fi
+#    checkVersion2 "$("$VBOXMANAGE" --version 2>&1 | awk '{ gsub(/[^0-9a-zA-Z .]/, "", $1); print $1}')" 5.2.24 [5-9].[2-9].[2-9][4-9] "VBox"
+#    if [[ $_RETURNVALUE == 0 ]]; then
+#        FAILTEST="1"
+#    fi
+#
+#    checkVersion2 "$("$VBOXMANAGE" list extpacks 2>&1 | grep "Oracle VM VirtualBox Extension Pack" -A 2 | grep Version: | awk '{print $2}')" 5.2.24 [5-9].[2-9].[2-9][4-9] "VBox Ext"
+#    if [[ $_RETURNVALUE == 0 ]]; then
+#        FAILTEST="1"
+#    fi
 
     checkVersion2 "$(nc -h 2>&1 | grep -E "usage:" -q && echo ok)" ok [ok] "netcat"
     if [[ $_RETURNVALUE == 0 ]]; then
