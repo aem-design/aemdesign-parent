@@ -1,8 +1,9 @@
 language: java
-
+services: docker
+sudo: false
 cache:
   directories:
-    - ~/.m2/repository
+    - '$HOME/.m2/repository'
 
 git:
   depth: false
