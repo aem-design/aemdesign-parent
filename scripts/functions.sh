@@ -145,12 +145,12 @@ function checkPreReqs() {
 #        FAILTEST="1"
 #    fi
 
-    checkVersion2 "$(ansible --version | awk 'NR==1 {print $2}')" 2.4.1.0 [2].[4].[1-9].[0-9] "ansible"
+    checkVersion2 "$(ansible --version 2>/dev/null | awk 'NR==1 {print $2}')" 2.4.1.0 [2].[4].[1-9].[0-9] "ansible"
     if [[ $_RETURNVALUE == 0 ]]; then
         FAILTEST="1"
     fi
 
-    checkVersion2 "$(ansible-playbook --version | awk 'NR==1 {print $2}')" 2.4.1.0 [2].[4].[1-9].[0-9] "ansible-playbook"
+    checkVersion2 "$(ansible-playbook --version  2>/dev/null| awk 'NR==1 {print $2}')" 2.4.1.0 [2].[4].[1-9].[0-9] "ansible-playbook"
     if [[ $_RETURNVALUE == 0 ]]; then
         FAILTEST="1"
     fi
@@ -189,21 +189,21 @@ function checkPreReqs() {
     if [[ $_RETURNVALUE == 0 ]]; then
         FAILTEST="1"
     fi
-
-    checkVersion virtualenv 16.4.3 [1-9][6-9].[4-9].[3-9] "--version"
-    if [[ $_RETURNVALUE == 0 ]]; then
-        FAILTEST="1"
-    fi
-
-    checkVersion2 "$(virtualenvwrapper --version | grep -E "virtualenvwrapper" -q && echo ok )" ok [ok] "virtualenvwrapper"
-    if [[ $_RETURNVALUE == 0 ]]; then
-        FAILTEST="1"
-    fi
-
-    checkVersion2 "$(workon --help | grep -E "workon" -q && echo ok )" ok [ok] "workon"
-    if [[ $_RETURNVALUE == 0 ]]; then
-        FAILTEST="1"
-    fi
+#
+#    checkVersion virtualenv 16.4.3 [1-9][6-9].[4-9].[3-9] "--version"
+#    if [[ $_RETURNVALUE == 0 ]]; then
+#        FAILTEST="1"
+#    fi
+#
+#    checkVersion2 "$(virtualenvwrapper --version | grep -E "virtualenvwrapper" -q && echo ok )" ok [ok] "virtualenvwrapper"
+#    if [[ $_RETURNVALUE == 0 ]]; then
+#        FAILTEST="1"
+#    fi
+#
+#    checkVersion2 "$(workon --help | grep -E "workon" -q && echo ok )" ok [ok] "workon"
+#    if [[ $_RETURNVALUE == 0 ]]; then
+#        FAILTEST="1"
+#    fi
 
 
 
