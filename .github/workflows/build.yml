@@ -23,7 +23,12 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
       - name: get submodules
+        env:
+          DEPLOY_KEY: ${{ secrets.AEMDESIGN_SSH_PRIVATE_KEY }}
+          GIT_SSH_COMMAND: "ssh -o StrictHostKeyChecking=no"
         run: |
+          eval "$(ssh-agent -s)"
+          ssh-add - <<< "${DEPLOY_KEY}"
           git submodule update --init --recursive
           git submodule foreach "if [[ -f '.gitmodules' ]]; then sed -i 's/git@github.com:/https:\/\/github.com\//' .gitmodules; git submodule foreach update --init; fi"
       - name: run devops
