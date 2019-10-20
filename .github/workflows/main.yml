@@ -1,4 +1,4 @@
-name: build devops
+name: ci
 
 on: [push]
 
