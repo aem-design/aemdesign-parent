@@ -1,7 +1,7 @@
 AEM Design Parent
 =================
 
-[![build_status](https://travis-ci.org/aem-design/aemdesign-parent.svg?branch=master)](https://travis-ci.org/aem-design/aemdesign-parent)
+[![build_status](https://github.com/aem-design/aemdesign-parent/workflows/main/badge.svg)](https://github.com/aem-design/aemdesign-parent/actions?workflow=main)
 [![github license](https://img.shields.io/github/license/aem-design/aemdesign-parent)](https://github.com/aem-design/aemdesign-parent) 
 [![github issues](https://img.shields.io/github/issues/aem-design/aemdesign-parent)](https://github.com/aem-design/aemdesign-parent) 
 [![github last commit](https://img.shields.io/github/last-commit/aem-design/aemdesign-parent)](https://github.com/aem-design/aemdesign-parent) 
