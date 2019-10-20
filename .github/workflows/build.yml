@@ -30,7 +30,7 @@ jobs:
           eval "$(ssh-agent -s)"
           ssh-add - <<< "${DEPLOY_KEY}"
           git submodule update --init --recursive
-          git submodule foreach "if [[ -f '.gitmodules' ]]; then sed -i 's/git@github.com:/https:\/\/github.com\//' .gitmodules; git submodule foreach update --init; fi"
+          git submodule foreach "if [[ -f '.gitmodules' ]]; then git submodule foreach update --init --recursive; fi"
       - name: run devops
         run: |
           ./devops
