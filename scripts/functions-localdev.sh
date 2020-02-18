@@ -814,32 +814,39 @@ function doBuildLocal() {
 
         if [[ -n "$VM_NET2_IP" && $(isNotEmpty "$VM_STATUS_ISRUNNING") == true ]]; then
 
+            # Do not do anything to VM outside of site.yml
+#            #setup vm first time to work on Local Lan IP
+#            if [[ -d "$PROJECT_DEPLOY" ]] ; then
+#                debug "Working from Parent Folder ${DIR_ROOT}" "info"
+#
+#                debug "Checking if VM Has not been configured" "info"
+#                if [[ $(isEmpty "$VM_STATUS_NEXUS") == true ]]; then
+#                    debug "Configuring VM for the First Time" "error"
+#
+#                    debug "Use Initial VMControl IP Address: $VM_NET2_IP_LOCAL" "info"
+##                    local VM_CONFIG_EXTRAVARS="--limit=$VM_NET2_IP"
+#
+#                    doBuildLocalDev
+#
+#                    debug "VM has been configured " "info"
+#
+#                    debug "Testing VM Nexus Service: $VM_NET2_IP_LOCAL $VM_NET_NEXUS_PORT" "info"
+#                    VM_STATUS_NEXUS="$(testHostPort $VM_NET2_IP_LOCAL $VM_NET_NEXUS_PORT)"
+#                    debug "VM_STATUS_NEXUS ($VM_NET2_IP): $VM_STATUS_NEXUS" "info"
+#
+#                else
+#                    debug "VM Has already been configured" "info"
+#                    debug "VM is accessible on: $VM_NET2_IP_LOCAL" "info"
+#                fi
+#            fi
+            debug "VM is accessible on: $VM_NET2_IP_LOCAL" "info"
 
+            debug "NEXT STEPS: install services in local vm [$VM_NET2_IP_LOCAL] run:" "warn"
+            debug "./devops deploylocaldev" "warn"
+            debug "Executing in 10 sec" "info"
 
-            #setup vm first time to work on Local Lan IP
-            if [[ -d "$PROJECT_DEPLOY" ]] ; then
-                debug "Working from Parent Folder ${DIR_ROOT}" "info"
-
-                debug "Checking if VM Has not been configured" "info"
-                if [[ $(isEmpty "$VM_STATUS_NEXUS") == true ]]; then
-                    debug "Configuring VM for the First Time" "error"
-
-                    debug "Use Initial VMControl IP Address: $VM_NET2_IP_LOCAL" "info"
-#                    local VM_CONFIG_EXTRAVARS="--limit=$VM_NET2_IP"
-
-                    doBuildLocalDev
-
-                    debug "VM has been configured " "info"
-
-                    debug "Testing VM Nexus Service: $VM_NET2_IP_LOCAL $VM_NET_NEXUS_PORT" "info"
-                    VM_STATUS_NEXUS="$(testHostPort $VM_NET2_IP_LOCAL $VM_NET_NEXUS_PORT)"
-                    debug "VM_STATUS_NEXUS ($VM_NET2_IP): $VM_STATUS_NEXUS" "info"
-
-                else
-                    debug "VM Has already been configured" "info"
-                    debug "VM is accessible on: $VM_NET2_IP_LOCAL" "info"
-                fi
-            fi
+            doTimeout 10
+            doDeployLocal
 
         else
             debug "Could not determine IP address to finalise config of VM" "warn"
@@ -848,23 +855,24 @@ function doBuildLocal() {
         debug "VM '$VM_NAME' does not Exist!"
     fi
 
-    if [[ $(isEmpty "$VM_STATUS_NEXUS") == false ]]; then
-
-        debug "NEXT STEPS: upload AEM jar to nexus on [$VM_NET2_IP_LOCAL] run:" "warn"
-        debug "cd $PROJECT_AEM && ./upload-nexus" "warn"
-        debug "Executing in 10 sec" "info"
-
-        doTimeout 10
-        doUploadToNexus
-
-        debug "NEXT STEPS: install services in local vm [$VM_NET2_IP_LOCAL] run:" "warn"
-        debug "./devops deploylocaldev" "warn"
-        debug "Executing in 10 sec" "info"
-
-        doTimeout 10
-        doDeployLocal
-
-    fi
+# No need to upload to nexus as all containers are build globally (hub.docker.com)
+#    if [[ $(isEmpty "$VM_STATUS_NEXUS") == false ]]; then
+#
+#        debug "NEXT STEPS: upload AEM jar to nexus on [$VM_NET2_IP_LOCAL] run:" "warn"
+#        debug "cd $PROJECT_AEM && ./upload-nexus" "warn"
+#        debug "Executing in 10 sec" "info"
+#
+#        doTimeout 10
+#        doUploadToNexus
+#
+#        debug "NEXT STEPS: install services in local vm [$VM_NET2_IP_LOCAL] run:" "warn"
+#        debug "./devops deploylocaldev" "warn"
+#        debug "Executing in 10 sec" "info"
+#
+#        doTimeout 10
+#        doDeployLocal
+#
+#    fi
 
     if [[ $(isEmpty "$VM_STATUS_SSH") == true ]]; then
 
