@@ -286,8 +286,8 @@ function updateVirtualBoxVMLan() {
 function waitForVirtualBoxVMShutdown() {
     debug "Waiting for Virtual Box VM ""$1"" to shutdown"
     local VM_STATUS_SHUTDOWN=0
-    while [[ $VM_STATUS_SHUTDOWN -eq 0 ]]; do
-        if [ -z "$(isVirtualBoxVMRunning "$1")" ]; then
+    while [[ ${VM_STATUS_SHUTDOWN} -eq 0 ]]; do
+        if [[ -z "$(isVirtualBoxVMRunning "$1")" ]]; then
             let VM_STATUS_SHUTDOWN=1
         fi
         debugStatus
@@ -299,7 +299,7 @@ function waitForVirtualBoxVMShutdown() {
 function waitForVirtualBoxVMStart() {
     debug "Waiting for VM '$1' to power on..."
     local VM_STATUS_START=0
-    while [[ $VM_STATUS_START -eq 0 ]]; do
+    while [[ ${VM_STATUS_START} -eq 0 ]]; do
         if [[ "$(isVirtualBoxVMRunning "$1")" == "$1" ]]; then
             let VM_STATUS_START=1
             break
@@ -345,7 +345,7 @@ function deleteVM() {
     fi
 
     debug "VirtualBox: Remove Build files '$2'"
-    if [ -d "$2" ]; then
+    if [[ -d "$2" ]]; then
         rm -rf "$2"
     fi
 
@@ -363,7 +363,7 @@ function updateVirtualBoxVMDisk() {
     local IFS_backup=$IFS
     IFS=$'\n'
     local DISK_LIST=( $(runVBoxManage showvminfo "$1" --machinereadable | grep "$2" | grep .vmdk) )
-    IFS=$IFS_backup
+    IFS=${IFS_backup}
 
     debug "DISK_LIST: ${DISK_LIST[@]}"
 
@@ -495,7 +495,7 @@ function doUploadToNexus() {
 
     debug "cd $PROJECT_AEM && ./upload-nexus" "info"
 
-    if [ -f "$PROJECT_AEM/upload-nexus" ]; then
+    if [[ -f "$PROJECT_AEM/upload-nexus" ]]; then
         cd "$PROJECT_AEM" && ./upload-nexus && cd - || return
     else
         debug "Upload file from $PROJECT_AEM." "warn"
@@ -504,9 +504,9 @@ function doUploadToNexus() {
 
 
 function doSecureSSHKeys() {
-    if [ "$OS" == "windows" ]; then
+    if [[ "$OS" == "windows" ]]; then
         cd "$1"/keys && ./protectkeys && stat -c '%a' current/* | uniq | awk '{print ($1=="500" || $1=="400" || $1=="444" ? "true" : "false")}' && cd - || return
-    elif [ "$OS" == "darwin" ]; then
+    elif [[ "$OS" == "darwin" ]] || [[ "$OS" == "osx"  ]]; then
         cd "$1"/keys && ./protectkeys && stat -f '%A' current/* | uniq | awk '{print ($1=="400" ? "true" : "false")}' && cd - || return
     else
         cd "$1"/keys && ./protectkeys && stat -c '%a' current/* | uniq | awk '{print ($1=="400" ? "true" : "false")}' && cd - || return
@@ -530,9 +530,9 @@ function doInitAndGet() {
 
 function doGenerateKeys() {
     debug "Check do SSH keys need generating"
-    if [ -d "$PROJECT_CONFIG_APPLIANCE" ]; then
+    if [[ -d "$PROJECT_CONFIG_APPLIANCE" ]]; then
 
-        if [ ! -f "$PROJECT_CONFIG_APPLIANCE/keys/current/aemdesign" ]; then
+        if [[ ! -f "$PROJECT_CONFIG_APPLIANCE/keys/current/aemdesign" ]]; then
             debug "Generating new ssh keys"
             cd "$PROJECT_CONFIG_APPLIANCE"/keys && ./generatekeys && cd - || return
         else
@@ -546,7 +546,7 @@ function doTimeout() {
     local TIMEOUT=${1:-$TIMEOUT_DEFAULT}
 
     (( TIMEOUT = TIMEOUT - 1 ))
-    while [ "$TIMEOUT" -ge "0" ]; do
+    while [[ "$TIMEOUT" -ge "0" ]]; do
         echo -n "."
         sleep 1
         (( TIMEOUT = TIMEOUT - 1 ))
