@@ -612,9 +612,9 @@ function doBuildLocal() {
     VM_STATUS_ISRUNNING="$(isVirtualBoxVMRunning "$VM_NAME")"
     export VM_CREATED=false
 #    local VM_DEPLOY_INVENTORY="inventory/localdev"
-    local VM_NET_NEXUS_PORT="8081"
-    local VM_STATUS_NEXUS
-    debug "Check VM has Nexus Running: $VM_NET2_IP_LOCAL:$VM_NET_NEXUS_PORT" "info"
+#    local VM_NET_NEXUS_PORT="8081"
+#    local VM_STATUS_NEXUS
+#    debug "Check VM has Nexus Running: $VM_NET2_IP_LOCAL:$VM_NET_NEXUS_PORT" "info"
 #    VM_STATUS_NEXUS="$(testHostPort "$VM_NET2_IP_LOCAL" "$VM_NET_NEXUS_PORT")"
 
     printSectionBanner "Verify VM Appliance" "error"
@@ -805,9 +805,9 @@ function doBuildLocal() {
             VM_STATUS_SSH="$(testHostPort $VM_NET2_IP_LOCAL $VM_NET2_SSH_PORT)"
             debug "VM_STATUS_SSH ($VM_NET2_IP): $VM_STATUS_SSH" "info"
 
-            debug "Testing VM Nexus Service: $VM_NET2_IP_LOCAL $VM_NET_NEXUS_PORT" "info"
-            VM_STATUS_NEXUS="$(testHostPort $VM_NET2_IP_LOCAL $VM_NET_NEXUS_PORT)"
-            debug "VM_STATUS_NEXUS ($VM_NET2_IP): $VM_STATUS_NEXUS" "info"
+#            debug "Testing VM Nexus Service: $VM_NET2_IP_LOCAL $VM_NET_NEXUS_PORT" "info"
+#            VM_STATUS_NEXUS="$(testHostPort $VM_NET2_IP_LOCAL $VM_NET_NEXUS_PORT)"
+#            debug "VM_STATUS_NEXUS ($VM_NET2_IP): $VM_STATUS_NEXUS" "info"
         fi
 
         debug "Working with $VM_NET2_IP" "info"
