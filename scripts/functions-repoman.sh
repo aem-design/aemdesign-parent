@@ -2,13 +2,13 @@
 
 REPOS_SSH_KEY="$(realpath ~/.ssh/id_rsa)"
 
-REPO_PARENT="git@gitlab.com:aem.design/aemdesign-parent.git"
+REPO_PARENT="git@github.com:aem-design/aemdesign-parent.git"
 
 export REPOLIST
-REPOLIST[0]="git@gitlab.com:aem.design/aemdesign-aem-core.git"
-REPOLIST[1]="git@gitlab.com:aem.design/aemdesign-aem-support.git"
-REPOLIST[2]="git@gitlab.com:aem.design/aemdesign-operations.git"
-REPOLIST[3]="git@gitlab.com:aem.design/aemdesign-archetype.git"
+REPOLIST[0]="git@github.com:aem-design/aemdesign-aem-core.git"
+REPOLIST[1]="git@github.com:aem-design/aemdesign-aem-support.git"
+REPOLIST[2]="git@github.com:aem-design/aemdesign-operations.git"
+REPOLIST[3]="git@github.com:aem-design/aemdesign-archetype.git"
 
 function doAddKey() {
 

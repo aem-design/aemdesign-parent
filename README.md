@@ -51,7 +51,7 @@ This project was built for Linux, Mac Osx and Windows (Cygwin and Bash on Ubuntu
 # Getting Started Approach
 
 * [Get some soft](#get-some-soft) (https://www.youtube.com/watch?v=KpWqTjLn7Fg)
-* [Setup SSH and GPG setup on Gitlab](docs/README-SSH-GPG.md) **IMPORTANT: ALL NON VERIFIED COMMITS WILL BE REJECTED**
+* [Setup SSH and GPG setup](docs/README-SSH-GPG.md) **IMPORTANT: ALL NON VERIFIED COMMITS WILL BE REJECTED**
 * Choose your Setup, ***pick one*** that matches your machine config
     * **PLEASE ENSURE THAT** ```./devops``` RETURNING **OK** FOR ALL PREREQUISITES BEFORE CONTINUING, if you find missing dependencies please raise a PR ot this readme after you update the [Dependencies Table](#dependencies-table)
     * [Mac](docs/README-MAC.md) - PREFERRED - you run Mac as your main OS
@@ -179,7 +179,7 @@ Quick path to getting Docker containers deployed on your local Docker Host, this
 - clone parent repo
 
 ```bash
-git clone --recursive git@gitlab.com:aem.design/aemdesign-parent.git
+git clone --recursive git@github.com:aem-design/aemdesign-parent.git
 ```
 
 - Verify dependencies (some missing dependencies will be installed using install steps)
@@ -203,7 +203,7 @@ Quick path to getting VM built with project deployed, this uses all command in o
 - clone parent repo
 
 ```bash
-git clone --recursive git@gitlab.com:aem.design/aemdesign-parent.git
+git clone --recursive git@github.com:aem-design/aemdesign-parent.git
 ```
 
 - Verify dependencies (some missing dependencies will be installed using install steps)
@@ -225,7 +225,7 @@ Manually run commands to get a vm built, will help you learn commands
 - clone parent repo
 
 ```bash
-git clone --recursive git@gitlab.com:aem.design/aemdesign-parent.git
+git clone --recursive git@github.com:aem-design/aemdesign-parent.git
 ```
 
 - Verify dependencies, this will show you if you are missing dependencies

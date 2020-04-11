@@ -76,15 +76,15 @@
     </properties>
 
     <scm>
-        <connection>scm:git:ssh://git@gitlab.com:aem.design/aemdesign-parent.git</connection>
-        <developerConnection>scm:git:ssh://git@gitlab.com:aem.design/aemdesign-parent.git</developerConnection>
-        <url>https://gitlab.com/aem.design/aemdesign-parent.git</url>
+        <connection>scm:git:ssh://git@github.com:aem-design/aemdesign-parent.git</connection>
+        <developerConnection>scm:git:ssh://git@github.com:aem-design/aemdesign-parent.git</developerConnection>
+        <url>https://github.com/aem-design/aemdesign-parent.git</url>
         <tag>v0.0.0</tag>
     </scm>
 
     <issueManagement>
         <system>Gitlab</system>
-        <url>https://gitlab.com/aem.design/aemdesign-parent/issues</url>
+        <url>c/aemdesign-parent/issues</url>
     </issueManagement>
 
     <distributionManagement>

@@ -6,7 +6,7 @@ AEM.Design Contributing
 Adding a new repo, if needed for everyone
 
 - Create repo in GitLab:
-```https://gitlab.com/aem.design/ ```
+```https://github.com/aem-design/ ```
 
 - Put the repo to ```.gitignore``` of parent project
 
