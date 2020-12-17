@@ -6,7 +6,9 @@ AEM Design Parent
 [![github issues](https://img.shields.io/github/issues/aem-design/aemdesign-parent)](https://github.com/aem-design/aemdesign-parent) 
 [![github last commit](https://img.shields.io/github/last-commit/aem-design/aemdesign-parent)](https://github.com/aem-design/aemdesign-parent) 
 [![github repo size](https://img.shields.io/github/repo-size/aem-design/aemdesign-parent)](https://github.com/aem-design/aemdesign-parent) 
-[![github repo size](https://img.shields.io/github/languages/code-size/aem-design/aemdesign-parent)](https://github.com/aem-design/aemdesign-parent) 
+[![github repo size](https://img.shields.io/github/languages/code-size/aem-design/aemdesign-parent)](https://github.com/aem-design/aemdesign-parent)
+[![Visit AEM.Design](https://img.shields.io/badge/visit-aem.design-brightgreen)](https://aem.design/)
+[![Gitter](https://img.shields.io/gitter/room/aem-design/Lobby)](https://gitter.im/aem-design/Lobby)
 
 
 This project is used to facilitate packaging and deployment of AEM projects and related tech.
