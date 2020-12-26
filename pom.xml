@@ -37,6 +37,7 @@
         <crx.username>admin</crx.username>
         <crx.password>admin</crx.password>
         <crx.package.path>/etc/packages</crx.package.path>
+        <crx.scheme>http</crx.scheme>
         <nexus.host>localhost</nexus.host>
         <nexus.port>8081</nexus.port>
         <publish.crx.host>localhost</publish.crx.host>
