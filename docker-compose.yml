@@ -120,49 +120,6 @@ services:
     depends_on:
       - publish
 
-  testing:
-    extends:
-      file: ./docker/testing/docker-compose.yml
-      service: testing
-    profiles:
-      - dotest
-    working_dir: /build/geb-aem-testing/gebaemtesting-testing
-    volumes:
-      - "./:/build/geb-aem-testing"
-      - "~/.m2:/build/.m2"
-    depends_on:
-      - author
-      - seleniumhub
-      - testingprep
-
-  testingprep:
-    extends:
-      file: ./docker/testing/docker-compose.yml
-      service: testingprep
-    volumes:
-      - ./docker/testing/playbooks:/ansible/playbooks
-    profiles:
-      - dotest
-    depends_on:
-      - author
-      - seleniumhub
-
-  testingcheck:
-    extends:
-      file: ./docker/testing/docker-compose.yml
-      service: testingcheck
-    volumes:
-      - ./:/build
-    profiles:
-      - dotest
-    volumes:
-      - ./:/build
-      - /var/run/docker.sock:/var/run/docker.sock:ro
-      - ./docker/testing/scripts/gettestresult.sh:/test.sh
-    depends_on:
-      - author
-      - seleniumhub
-
 networks:
   seleniumgrid:
   author-network:
