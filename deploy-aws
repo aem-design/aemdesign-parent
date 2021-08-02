@@ -1,7 +1,0 @@
-#!/bin/bash
-
-AEM_USER=${1:?Please specifiy a username}
-AEM_PASS=${2:?Please specifiy a password}
-AEM_HOST=54.153.160.42
-
-./deploy -Daem.host=${AEM_HOST} -Daem.username=${AEM_USER} -Daem.password=${AEM_PASS}
