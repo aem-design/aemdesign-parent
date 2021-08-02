@@ -17,18 +17,8 @@ This project is used to facilitate packaging and deployment of AEM projects and 
 <p style="color:red;">
 <b>PLEASE ENSURE THAT YOU STUDY THE README, DO NOT SKIM OVER THIS AS THERE IS A LOT OF MOVING PARTS YOU WONT KNOW ABOUT</b><br><br>
 <b>PLEASE ENSURE THAT ALL PREREQUISITES ARE INSTALLED BEFORE DOING ANYTHING, OTHERWISE YOU WILL HAVE ISSUES YOU WILL NEED TO ANALYSE AND FIX ON YOUR OWN</b><br><br>
-<b>YOUR BASH AND TEAM MATES WILL THANK YOU!!!</b>
 </p>
-
 ***
-
-# Preamble
-
-**_BIG NOTE: DevOps by default will send output log of all operations to Slack!_**
-
-Please check channel ```devops-builds``` in ```aem.design``` slack!
-
-This will make it easier for everyone to trouble shoot.
 
 # Project A-B-C's
 
