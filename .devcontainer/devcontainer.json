@@ -1,5 +1,5 @@
 {
-  "image": "aemdesign/centos-java-buildpack",
+  "image": "aemdesign/java-buildpack:jdk11",
   "workspaceMount": "source=${localWorkspaceFolder},target=/build/source,type=bind",
   "workspaceFolder": "/build/source",
   "extensions": [

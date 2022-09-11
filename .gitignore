@@ -62,3 +62,5 @@ devops___*
 
 #ignore selenium jars
 selenium-server-*
+
+.vscode
