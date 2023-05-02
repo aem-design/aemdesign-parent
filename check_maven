@@ -1,7 +1,0 @@
-#!/bin/bash
-
-if [[ "$(echo $MAVEN_OPTS | grep trustStore)" == "" ]]; then
-    echo "Please see README.MD to setup your MAVEN_OPTS with valid trustStore."
-    exit 1
-fi
-

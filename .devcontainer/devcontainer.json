@@ -1,0 +1,11 @@
+{
+  "image": "aemdesign/java-buildpack:jdk11",
+  "workspaceMount": "source=${localWorkspaceFolder},target=/build/source,type=bind",
+  "workspaceFolder": "/build/source",
+  "extensions": [
+    "mutantdino.resourcemonitor"
+  ],
+  "mounts": [
+    "source=${localEnv:HOME}${localEnv:USERPROFILE}/.m2/,target=/build/.m2/,type=bind,consistency=cached"
+  ]
+}

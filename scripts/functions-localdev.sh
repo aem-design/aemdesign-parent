@@ -286,8 +286,8 @@ function updateVirtualBoxVMLan() {
 function waitForVirtualBoxVMShutdown() {
     debug "Waiting for Virtual Box VM ""$1"" to shutdown"
     local VM_STATUS_SHUTDOWN=0
-    while [[ $VM_STATUS_SHUTDOWN -eq 0 ]]; do
-        if [ -z "$(isVirtualBoxVMRunning "$1")" ]; then
+    while [[ ${VM_STATUS_SHUTDOWN} -eq 0 ]]; do
+        if [[ -z "$(isVirtualBoxVMRunning "$1")" ]]; then
             let VM_STATUS_SHUTDOWN=1
         fi
         debugStatus
@@ -299,7 +299,7 @@ function waitForVirtualBoxVMShutdown() {
 function waitForVirtualBoxVMStart() {
     debug "Waiting for VM '$1' to power on..."
     local VM_STATUS_START=0
-    while [[ $VM_STATUS_START -eq 0 ]]; do
+    while [[ ${VM_STATUS_START} -eq 0 ]]; do
         if [[ "$(isVirtualBoxVMRunning "$1")" == "$1" ]]; then
             let VM_STATUS_START=1
             break
@@ -345,7 +345,7 @@ function deleteVM() {
     fi
 
     debug "VirtualBox: Remove Build files '$2'"
-    if [ -d "$2" ]; then
+    if [[ -d "$2" ]]; then
         rm -rf "$2"
     fi
 
@@ -363,7 +363,7 @@ function updateVirtualBoxVMDisk() {
     local IFS_backup=$IFS
     IFS=$'\n'
     local DISK_LIST=( $(runVBoxManage showvminfo "$1" --machinereadable | grep "$2" | grep .vmdk) )
-    IFS=$IFS_backup
+    IFS=${IFS_backup}
 
     debug "DISK_LIST: ${DISK_LIST[@]}"
 
@@ -495,7 +495,7 @@ function doUploadToNexus() {
 
     debug "cd $PROJECT_AEM && ./upload-nexus" "info"
 
-    if [ -f "$PROJECT_AEM/upload-nexus" ]; then
+    if [[ -f "$PROJECT_AEM/upload-nexus" ]]; then
         cd "$PROJECT_AEM" && ./upload-nexus && cd - || return
     else
         debug "Upload file from $PROJECT_AEM." "warn"
@@ -504,9 +504,9 @@ function doUploadToNexus() {
 
 
 function doSecureSSHKeys() {
-    if [ "$OS" == "windows" ]; then
+    if [[ "$OS" == "windows" ]]; then
         cd "$1"/keys && ./protectkeys && stat -c '%a' current/* | uniq | awk '{print ($1=="500" || $1=="400" || $1=="444" ? "true" : "false")}' && cd - || return
-    elif [ "$OS" == "darwin" ]; then
+    elif [[ "$OS" == "darwin" ]] || [[ "$OS" == "osx"  ]]; then
         cd "$1"/keys && ./protectkeys && stat -f '%A' current/* | uniq | awk '{print ($1=="400" ? "true" : "false")}' && cd - || return
     else
         cd "$1"/keys && ./protectkeys && stat -c '%a' current/* | uniq | awk '{print ($1=="400" ? "true" : "false")}' && cd - || return
@@ -530,9 +530,9 @@ function doInitAndGet() {
 
 function doGenerateKeys() {
     debug "Check do SSH keys need generating"
-    if [ -d "$PROJECT_CONFIG_APPLIANCE" ]; then
+    if [[ -d "$PROJECT_CONFIG_APPLIANCE" ]]; then
 
-        if [ ! -f "$PROJECT_CONFIG_APPLIANCE/keys/current/aemdesign" ]; then
+        if [[ ! -f "$PROJECT_CONFIG_APPLIANCE/keys/current/aemdesign" ]]; then
             debug "Generating new ssh keys"
             cd "$PROJECT_CONFIG_APPLIANCE"/keys && ./generatekeys && cd - || return
         else
@@ -546,7 +546,7 @@ function doTimeout() {
     local TIMEOUT=${1:-$TIMEOUT_DEFAULT}
 
     (( TIMEOUT = TIMEOUT - 1 ))
-    while [ "$TIMEOUT" -ge "0" ]; do
+    while [[ "$TIMEOUT" -ge "0" ]]; do
         echo -n "."
         sleep 1
         (( TIMEOUT = TIMEOUT - 1 ))
@@ -612,9 +612,9 @@ function doBuildLocal() {
     VM_STATUS_ISRUNNING="$(isVirtualBoxVMRunning "$VM_NAME")"
     export VM_CREATED=false
 #    local VM_DEPLOY_INVENTORY="inventory/localdev"
-    local VM_NET_NEXUS_PORT="8081"
-    local VM_STATUS_NEXUS
-    debug "Check VM has Nexus Running: $VM_NET2_IP_LOCAL:$VM_NET_NEXUS_PORT" "info"
+#    local VM_NET_NEXUS_PORT="8081"
+#    local VM_STATUS_NEXUS
+#    debug "Check VM has Nexus Running: $VM_NET2_IP_LOCAL:$VM_NET_NEXUS_PORT" "info"
 #    VM_STATUS_NEXUS="$(testHostPort "$VM_NET2_IP_LOCAL" "$VM_NET_NEXUS_PORT")"
 
     printSectionBanner "Verify VM Appliance" "error"
@@ -805,41 +805,48 @@ function doBuildLocal() {
             VM_STATUS_SSH="$(testHostPort $VM_NET2_IP_LOCAL $VM_NET2_SSH_PORT)"
             debug "VM_STATUS_SSH ($VM_NET2_IP): $VM_STATUS_SSH" "info"
 
-            debug "Testing VM Nexus Service: $VM_NET2_IP_LOCAL $VM_NET_NEXUS_PORT" "info"
-            VM_STATUS_NEXUS="$(testHostPort $VM_NET2_IP_LOCAL $VM_NET_NEXUS_PORT)"
-            debug "VM_STATUS_NEXUS ($VM_NET2_IP): $VM_STATUS_NEXUS" "info"
+#            debug "Testing VM Nexus Service: $VM_NET2_IP_LOCAL $VM_NET_NEXUS_PORT" "info"
+#            VM_STATUS_NEXUS="$(testHostPort $VM_NET2_IP_LOCAL $VM_NET_NEXUS_PORT)"
+#            debug "VM_STATUS_NEXUS ($VM_NET2_IP): $VM_STATUS_NEXUS" "info"
         fi
 
         debug "Working with $VM_NET2_IP" "info"
 
         if [[ -n "$VM_NET2_IP" && $(isNotEmpty "$VM_STATUS_ISRUNNING") == true ]]; then
 
+            # Do not do anything to VM outside of site.yml
+#            #setup vm first time to work on Local Lan IP
+#            if [[ -d "$PROJECT_DEPLOY" ]] ; then
+#                debug "Working from Parent Folder ${DIR_ROOT}" "info"
+#
+#                debug "Checking if VM Has not been configured" "info"
+#                if [[ $(isEmpty "$VM_STATUS_NEXUS") == true ]]; then
+#                    debug "Configuring VM for the First Time" "error"
+#
+#                    debug "Use Initial VMControl IP Address: $VM_NET2_IP_LOCAL" "info"
+##                    local VM_CONFIG_EXTRAVARS="--limit=$VM_NET2_IP"
+#
+#                    doBuildLocalDev
+#
+#                    debug "VM has been configured " "info"
+#
+#                    debug "Testing VM Nexus Service: $VM_NET2_IP_LOCAL $VM_NET_NEXUS_PORT" "info"
+#                    VM_STATUS_NEXUS="$(testHostPort $VM_NET2_IP_LOCAL $VM_NET_NEXUS_PORT)"
+#                    debug "VM_STATUS_NEXUS ($VM_NET2_IP): $VM_STATUS_NEXUS" "info"
+#
+#                else
+#                    debug "VM Has already been configured" "info"
+#                    debug "VM is accessible on: $VM_NET2_IP_LOCAL" "info"
+#                fi
+#            fi
+            debug "VM is accessible on: $VM_NET2_IP_LOCAL" "info"
 
+            debug "NEXT STEPS: install services in local vm [$VM_NET2_IP_LOCAL] run:" "warn"
+            debug "./devops deploylocaldev" "warn"
+            debug "Executing in 10 sec" "info"
 
-            #setup vm first time to work on Local Lan IP
-            if [[ -d "$PROJECT_DEPLOY" ]] ; then
-                debug "Working from Parent Folder ${DIR_ROOT}" "info"
-
-                debug "Checking if VM Has not been configured" "info"
-                if [[ $(isEmpty "$VM_STATUS_NEXUS") == true ]]; then
-                    debug "Configuring VM for the First Time" "error"
-
-                    debug "Use Initial VMControl IP Address: $VM_NET2_IP_LOCAL" "info"
-#                    local VM_CONFIG_EXTRAVARS="--limit=$VM_NET2_IP"
-
-                    doBuildLocalDev
-
-                    debug "VM has been configured " "info"
-
-                    debug "Testing VM Nexus Service: $VM_NET2_IP_LOCAL $VM_NET_NEXUS_PORT" "info"
-                    VM_STATUS_NEXUS="$(testHostPort $VM_NET2_IP_LOCAL $VM_NET_NEXUS_PORT)"
-                    debug "VM_STATUS_NEXUS ($VM_NET2_IP): $VM_STATUS_NEXUS" "info"
-
-                else
-                    debug "VM Has already been configured" "info"
-                    debug "VM is accessible on: $VM_NET2_IP_LOCAL" "info"
-                fi
-            fi
+            doTimeout 10
+            doDeployLocal
 
         else
             debug "Could not determine IP address to finalise config of VM" "warn"
@@ -848,23 +855,24 @@ function doBuildLocal() {
         debug "VM '$VM_NAME' does not Exist!"
     fi
 
-    if [[ $(isEmpty "$VM_STATUS_NEXUS") == false ]]; then
-
-        debug "NEXT STEPS: upload AEM jar to nexus on [$VM_NET2_IP_LOCAL] run:" "warn"
-        debug "cd $PROJECT_AEM && ./upload-nexus" "warn"
-        debug "Executing in 10 sec" "info"
-
-        doTimeout 10
-        doUploadToNexus
-
-        debug "NEXT STEPS: install services in local vm [$VM_NET2_IP_LOCAL] run:" "warn"
-        debug "./devops deploylocaldev" "warn"
-        debug "Executing in 10 sec" "info"
-
-        doTimeout 10
-        doDeployLocal
-
-    fi
+# No need to upload to nexus as all containers are build globally (hub.docker.com)
+#    if [[ $(isEmpty "$VM_STATUS_NEXUS") == false ]]; then
+#
+#        debug "NEXT STEPS: upload AEM jar to nexus on [$VM_NET2_IP_LOCAL] run:" "warn"
+#        debug "cd $PROJECT_AEM && ./upload-nexus" "warn"
+#        debug "Executing in 10 sec" "info"
+#
+#        doTimeout 10
+#        doUploadToNexus
+#
+#        debug "NEXT STEPS: install services in local vm [$VM_NET2_IP_LOCAL] run:" "warn"
+#        debug "./devops deploylocaldev" "warn"
+#        debug "Executing in 10 sec" "info"
+#
+#        doTimeout 10
+#        doDeployLocal
+#
+#    fi
 
     if [[ $(isEmpty "$VM_STATUS_SSH") == true ]]; then
 

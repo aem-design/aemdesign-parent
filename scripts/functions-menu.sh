@@ -129,11 +129,23 @@ function installAutoComplete() {
 
 }
 
-function setupAutoComplete() {
+function setupAutoCompleteBash() {
     complete -F _autoCompleteMenu -o filenames ./devops ./devops-cli
+}
+
+function setupAutoCompleteZsh() {
+    echo ZSH AUTOCOMPLETE NOT SUPPORTED
+    #complete -F _autoCompleteMenu -o filenames ./devops ./devops-cli
 }
 
 #if file being sourced do autocomplete
 if [[ $_ != "$0" ]]; then
-    setupAutoComplete
+    if [[ -n "$ZSH_VERSION" ]]; then
+        # assume Zsh
+        setupAutoCompleteZsh
+    elif [[ -n "$BASH_VERSION" ]]; then
+       # assume Bash
+       setupAutoCompleteBash
+    fi
+
 fi
